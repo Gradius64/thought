@@ -72,6 +72,15 @@ const thoughtSchema = new Schema({
                 ({ message: 'User not found' });
             }
 
+            // create schema for thought model
+
+            const thoughtSchema = new Schema<IThought>({
+                thoughtText: {
+                  type: String,
+                  required: true,      // Make this field required
+                  minlength: 1,        // Minimum length of 1 character
+                  maxlength: 280,      // Maximum length of 280 characters
+                },
         
             
 
@@ -83,4 +92,4 @@ const thoughtSchema = new Schema({
     
 
         }
-        )
+   
