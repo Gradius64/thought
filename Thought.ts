@@ -1,7 +1,15 @@
 // define the thought schema
 //const mongoose = require('mongoose')
 //const { Schema } = mongoose;
-import { Schema, Types, type Document} from "mongoose"
+import { Schema, Types, type Document } from "mongoose"
+import {Model, model } from 'mongoose';
+
+
+
+
+
+
+
 interface IReaction extends Document {
     reactionId: Schema.Types.ObjectId;
     reactionBody: string;
@@ -16,80 +24,76 @@ interface IThought extends Document {
     reactions: IReaction[];
     reactionCount: number; // Virtual property
 }
-const reactionSchema = new Schema<IReaction>({
-    reactionId: {
-        type: Schema.Types.ObjectId,
-        default: () => new Types.ObjectId(),
-    },
-    reactionBody: {
-        type: String,
-        required: true,
-        maxlength: 280,
-    },
-    username: {
-        type: String,
-        required: true,
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now,
-        get: (timestamp: Date) => new Date(timestamp).toLocaleString(),
-    },
-});
 
-const thoughtSchema = new Schema({
-    thoughtText: {
+
+
+
+
+const thoughtSchema = new Schema ({
+    thoughtText : {
         type: String,
         required: true,
         minlength: 1,
         maxlength: 280
-
     },
+
     createdAt: {
         type: Date,
-        default: Date.now,
-         // Example of a getter method for formatting
+        default: Date.now
     },
-    username : {
+    username: {
         type: String,
         required: true
     },
+    reactions : [
+        {
+            reactionBody: {
+                type: String,
+                required: true,
+                maxlength: 280
 
-    reactions: [
-        reactionSchema
-        ]})
-        // create virtual property called reaction count 
-        thoughtSchema.virtual('reactionCount').get(function() {
-            return this.reactions.length;
+            },
 
-        });
+            username: {
+                type: String,
+                required: true
 
-        const UserSchema: Schema = new Schema({
-            username: { type:String, required: true },
-            email: {type: String, required: true},
+        }
 
-            if () {
-                ({ message: 'User not found' });
-            }
-
-            // create schema for thought model
-
-            const thoughtSchema = new Schema<IThought>({
-                thoughtText: {
-                  type: String,
-                  required: true,      // Make this field required
-                  minlength: 1,        // Minimum length of 1 character
-                  maxlength: 280,      // Maximum length of 280 characters
-                },
+       
         
-            
+    
+    
 
-            
 
-        
-        
+
+
+
 
     
 
-        }
+    
    
+
+
+
+    
+        
+       
+    
+
+   
+
+// create virtual property called reaction count
+    }]})
+
+
+    // Define virtual properties
+    thoughtSchema.virtual('reactionCount').get(function() {
+        return this.reactions.length;
+    });
+
+    thoughtSchema.virtual('fullName').get(function() {
+
+    }
+)
